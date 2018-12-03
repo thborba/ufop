@@ -6,27 +6,13 @@
 
 using namespace std;
 
-typedef struct Cidade {
-	string uf;
-	string nome;
-	unsigned long populacao;
-	float IDH;
-}TCidade;
+typedef struct Cidade TCidade;
 
-typedef struct No{
-	TCidade cidade;
-	struct No *pEsq, *pDir;
-} TNo;
+typedef struct No TNo;
 
 typedef TNo* TArvore;
 
-typedef struct hash {
-	int n; //numero de posicoes do hash;
-	int nro_arvore; //tamanho do array de arvores
-	int nro_pesos; //tamanho do array de pesos;
-	int *p; //array de pesos;
-	TArvore *raiz; //array de arvore
-}THash;
+typedef struct hash THash;
 
 
 //Hash com lista Encadeada
