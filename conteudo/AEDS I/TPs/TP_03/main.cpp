@@ -1,4 +1,4 @@
-#include "THash.h"
+#include "hash.cpp"
 #include <assert.h>
 #include <stdlib.h>
 
@@ -6,37 +6,6 @@ using namespace std;
 
 
 int main() {
-	
-	string a;
-	int o;
-	float x;
-int i = 0;
-
-	do {
-		cin >> o;
-
-		cin.ignore();
-		cin.clear();
-		getline(cin, a);
-		cout << a << endl;
-
-		getline(cin, a);
-		cout << a << endl;
-
-		cin >> o;
-		cout << o << endl;
-
-		cin >> x;
-		cout << x << endl;
-
-		cin >> o;
-		cout <<"proximo: " << o << endl;
-		i++;
-
-		//if (i == 10) return 0;
-		//return 0;
-
-	}while(o != 6);
 
 	/*	Declaração de Variáveis	*/
 	int opMenu;
@@ -58,17 +27,20 @@ int i = 0;
 		cout << "	4 - Pesquisar dados de alguma cidade: " << endl;
 		cout << "	5 - Exibir todos os registros: "		<< endl;
 		cout << "	6 - Encerrar programa: " 				<< endl;
-		
+
 		cin >> opMenu;
-		
+
 		switch(opMenu) {
 			case 1: //Inserir nova cidade;
+				cin.ignore();
+				cin.clear();
 				cout << "Insira a UF da cidade: " 			<< endl;
 				getline(cin, cidade->uf);
 				cidade->uf = strToUpper(cidade->uf);
-
+				cin.clear();
 				cout << "Insira o nome da cidade: " 		<< endl;
 				getline(cin, cidade->nome);
+				cin.clear();
 
 				do {
 					cout << "Insira a populacao da cidade: "	<< endl;
@@ -79,16 +51,19 @@ int i = 0;
 					cout << "Insira o IDH da cidade (Entre 0 e 1): " << endl;
 					cin >> cidade->IDH;
 				} while (cidade->IDH < 0 || cidade->IDH > 1);
-				
+
 				cout << ((THash_Insere(hash, *cidade) == 1) ? "Cidade inserida com sucesso." :  "Cidade ja cadastrada") << endl;
 				break;
 			case 2: //Editar cidade
+				cin.ignore();
+				cin.clear();
 				cout << "Insira a UF da cidade: " 			<< endl;
 				getline(cin, cidade->uf);
 				cidade->uf = strToUpper(cidade->uf);
-
+				cin.clear();
 				cout << "Insira o nome da cidade: " 		<< endl;
 				getline(cin, cidade->nome);
+				cin.clear();
 
 				if(THash_Pesquisa(hash, cidade) == 0)
 					cOut("BUSCA NAO REALIZADA - REGISTRO NAO ENCONTRADO");
@@ -104,12 +79,12 @@ int i = 0;
 						cout << "	4 - Cancelar" 		<< endl;
 						cin >> opMenu;
 					} while (opMenu < 1 || opMenu > 4);
-					
+
 					switch(opMenu) {
 						case 1:
 							do {
 								cout << "Insira a populacao da cidade: "	<< endl;
-								cin >> cidade->populacao;	
+								cin >> cidade->populacao;
 							} while (cidade->populacao < 0);
 							break;
 						case 2:
@@ -121,7 +96,7 @@ int i = 0;
 						case 3:
 							do {
 								cout << "Insira a populacao da cidade: "	<< endl;
-								cin >> cidade->populacao;	
+								cin >> cidade->populacao;
 							} while (cidade->populacao < 0);
 
 							do {
@@ -141,13 +116,15 @@ int i = 0;
 				}
 				break;
 			case 3:	// Excluir cidade
-
+				cin.ignore();
+				cin.clear();
 				cout << "Insira a UF da cidade: " 			<< endl;
 				getline(cin, cidade->uf);
 				cidade->uf = strToUpper(cidade->uf);
-
+				cin.clear();
 				cout << "Insira o nome da cidade: " 		<< endl;
 				getline(cin, cidade->nome);
+				cin.clear();
 
 				if(THash_Pesquisa(hash, cidade) == 0)
 					cOut("BUSCA NAO REALIZADA - REGISTRO NAO ENCONTRADO");
@@ -164,12 +141,15 @@ int i = 0;
 				}
 				break;
 			case 4:	//Buscar cidade
+				cin.ignore();
+				cin.clear();
 				cout << "Digite a UF da cidade que deseja buscar: " 	<< endl;
 				getline(cin, cidade->uf);
 				cidade->uf = strToUpper(cidade->uf);
-
+				cin.clear();
 				cout << "Insira o nome da cidade que deseja buscar: " 	<< endl;
 				getline(cin, cidade->nome);
+				cin.clear();
 
 				if(THash_Pesquisa(hash, cidade) == 0)
 					cOut("BUSCA NAO REALIZADA - REGISTRO NAO ENCONTRADO");
@@ -182,7 +162,7 @@ int i = 0;
 			case 5: // Exibir todos os registros
 					if(THash_PesquisarTodos(*hash) == 0)
 						cOut("NENHUM REGISTRO ENCONTRADO");
-					
+
 				break;
 			case 6: // Encerrar programa
 				cOut("Obrigado por usar o programa.");
@@ -198,4 +178,5 @@ int i = 0;
 
 	return 0;
 }
+
 
