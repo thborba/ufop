@@ -2,6 +2,27 @@
 #include <stdlib.h>
 using namespace std;
 
+struct Cidade {
+	string uf;
+	string nome;
+	unsigned long populacao;
+	float IDH;
+};
+
+struct No{
+	TCidade cidade;
+	struct No *pEsq, *pDir;
+};
+
+struct hash {
+	int n; //numero de posicoes do hash;
+	int nro_arvore; //tamanho do array de arvores
+	int nro_pesos; //tamanho do array de pesos;
+	int *p; //array de pesos;
+	TArvore *raiz; //array de arvore
+};
+
+
 THash* THash_Inicia() {
 	THash *hash = new THash;
 
@@ -38,7 +59,7 @@ int THash_H(THash *hash, TCidade cidade) {
 
 int THash_Pesquisa(THash *hash, TCidade *cidade) {
 	int i = THash_H(hash, *cidade);
-	
+
 	if (TArvore_EhVazia(&hash->raiz[i]))
 		return 0;
 
@@ -106,7 +127,7 @@ int TArvore_Pesquisa(TArvore pRaiz, TCidade *cidade) {
 
 	if (cidade->nome < pRaiz->cidade.nome)
 		return TArvore_Pesquisa(pRaiz->pEsq, cidade);
-	
+
 	if (cidade->nome > pRaiz->cidade.nome)
 		return TArvore_Pesquisa(pRaiz->pDir, cidade);
 
@@ -134,7 +155,7 @@ int TArvore_Edita(TNo **ppR, TCidade cidade) {
 
 	if (cidade.nome < (*ppR)->cidade.nome)
 		return TArvore_Edita(&((*ppR)->pEsq), cidade);
-	
+
 	if (cidade.nome > (*ppR)->cidade.nome)
 		return TArvore_Edita(&((*ppR)->pDir), cidade);
 
@@ -156,7 +177,7 @@ int TArvore_Excluir(TNo **p, TCidade cidade) {
 	if((*p)->pEsq == NULL && (*p)->pDir == NULL) { //nao tem filho
 		free(*p);
 		*p = NULL;
-		
+
 	} else if ((*p)->pEsq != NULL && (*p)->pDir == NULL) { //tem filho a esquerda
 		pAux = *p;
 		*p = (*p)->pEsq;
@@ -202,16 +223,15 @@ void TArvore_PesquisarTodosCentral(TNo *p) {
 void TCidade_MostrarDados(TCidade cidade, bool uf) {
 	if(uf == true)
 		cout << "UF: " << cidade.uf 					<< endl;
-
-	cout << "Nome: " << cidade.nome 				<< endl;
-	cout << "Populacao: " << cidade.populacao 		<< endl;
-	cout << "IDH: " << cidade.IDH 					<< endl;
+		cout << "Nome: " << cidade.nome 				<< endl;
+		cout << "Populacao: " << cidade.populacao 		<< endl;
+		cout << "IDH: " << cidade.IDH 					<< endl;
 }
 
 string strToUpper(string str) {
 	for(int i = 0; i < str.size(); ++i)
 		str[i] = toupper(str[i]);
-	
+
 	return str;
 }
 
