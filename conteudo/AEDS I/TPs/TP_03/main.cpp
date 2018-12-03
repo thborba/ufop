@@ -1,4 +1,4 @@
-#include "hash.cpp"
+#include "THash.cpp"
 #include <assert.h>
 #include <stdlib.h>
 
